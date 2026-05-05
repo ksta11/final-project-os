@@ -1,0 +1,7 @@
+FROM python:3.9-slim
+WORKDIR /app
+# Instalamos dependencias necesarias
+RUN pip install flask requests mysql-connector-python
+COPY app.py .
+EXPOSE 5000
+CMD ["python", "app.py"]
