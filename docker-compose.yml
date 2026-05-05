@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: contenedor_worker
+    environment:
+      - PYTHONUNBUFFERED=1  # <--- ESTO FUERZA A PYTHON A MOSTRAR LOS LOGS
+    restart: always
+    volumes:
+      - ./backups_locales:/app/backups
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: contenedor_frontend
+    environment:
+      - PYTHONUNBUFFERED=1  # <-- ESTO HACE QUE LOS LOGS APAREZCAN YA
+    ports:
+      - "5000:5000"
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
