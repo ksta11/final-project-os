@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "producto": "Laptop Pro",
+        "cantidad": 15,
+        "fecha_registro": "2026-05-01 20:16:29"
+    },
+    {
+        "id": 2,
+        "producto": "Monitor 4K",
+        "cantidad": 30,
+        "fecha_registro": "2026-05-01 20:16:29"
+    },
+    {
+        "id": 3,
+        "producto": "Teclado Mecanico",
+        "cantidad": 50,
+        "fecha_registro": "2026-05-01 20:16:29"
+    }
+]
