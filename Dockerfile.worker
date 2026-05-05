@@ -1,0 +1,14 @@
+# Usamos una imagen ligera de Python
+FROM python:3.9-slim
+
+# Directorio de trabajo
+WORKDIR /app
+
+# Instalamos la librería necesaria para MySQL
+RUN pip install mysql-connector-python
+
+# Copiamos tu script al contenedor
+COPY sync_worker.py .
+
+# Comando para ejecutar el script
+CMD ["python", "sync_worker.py"]
