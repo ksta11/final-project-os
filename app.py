@@ -169,8 +169,8 @@ def index():
                 <div class="grid">
                     <div class="card">
                         <span class="tag">Concurrencia</span>
-                        <h2>Botón 1: API Externa</h2>
-                        <p>Inicia una tarea en segundo plano con un hilo y consulta una API externa sin bloquear la interfaz.</p>
+                        <h2>Botón 1: Productos de Electrónica</h2>
+                        <p>Inicia una tarea en segundo plano con un hilo y consulta una API de productos de electrónica sin bloquear la interfaz.</p>
                         <div class="actions">
                             <button id="btn1" class="btn-blue" onclick="cargarResultado('/boton1', 'resultado1')">Ejecutar Botón 1</button>
                         </div>
@@ -205,16 +205,18 @@ def boton1():
     # REQUISITO: Uso de Concurrencia (Threads)
     def tarea_pesada():
         try:
-            print("Iniciando consulta a API externa...")
-            resp = requests.get("https://api.github.com", timeout=10)
-            body = resp.text
-            # truncar a 1000 chars para no saturar
-            trunc = (body[:1000] + '...') if len(body) > 1000 else body
+            print("Iniciando consulta a API de productos de electrónica...")
+            resp = requests.get("https://fakestoreapi.com/products/category/electronics", timeout=10)
+            productos = resp.json()
             ts = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-            resumen = f"[{ts}] Código: {resp.status_code}\n{trunc}"
+            # Formatear productos de forma legible
+            resumen = f"[{ts}] Productos de Electrónica (Código: {resp.status_code}):\n"
+            for prod in productos[:5]:  # Mostrar los primeros 5 productos
+                resumen += f"  • {prod.get('title', 'N/A')}: ${prod.get('price', 'N/A')}\n"
+            resumen += f"\nTotal de {len(productos)} productos disponibles."
             THREAD_STATE['boton1']['result'] = resumen
             THREAD_STATE['boton1']['status'] = 'done'
-            print("Consulta finalizada.")
+            print("Consulta de productos finalizada.")
         except Exception as e:
             THREAD_STATE['boton1']['status'] = 'error'
             THREAD_STATE['boton1']['result'] = str(e)
